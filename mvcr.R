@@ -6,7 +6,7 @@ library(dplyr)
 mvcr <- read.xlsx("Úmrtí-osob-výpis.xlsx", detectDates = T)
 
 # převeď datum úmrtí na číslo týdne
-mvcr$time <- paste0(year(mvcr$Datum.úmrtí), "W", formatC(isoweek(mvcr$Datum.úmrtí), format="d", width=2, flag="0"))
+mvcr$time <- paste0(isoyear(mvcr$Datum.úmrtí), "W", formatC(isoweek(mvcr$Datum.úmrtí), format="d", width=2, flag="0"))
 
 # pohlaví anglicky
 mvcr[mvcr$Pohlaví=="Z",]$Pohlaví <- "F"
