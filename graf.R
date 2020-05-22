@@ -59,16 +59,16 @@ data %>%
   labs(title = "Počty zemřelých po týdnech v České republice 2005–2020",
        subtitle = "Červeně rok 2020, šedě roky 2005 až 2019, tmavomodře 2018",
        y="",x="",
-       caption = "Zdroj dat: Eurostat | Vizualizace: B. Coulmont") +
+       caption = "Zdroj dat: Eurostat | Vizualizace: iROZHLAS.cz, B. Coulmont") +
   theme_ipsum(plot_margin = margin(5, 5, 0, 5), 
               plot_title_margin=5 , 
               subtitle_margin=5,
               base_family = "Helvetica") +
   theme(plot.title.position="plot")
 
-ggsave("~/Desktop/eurostat.png",width=1100/120,height=700/120,dpi=120)
+ggsave("eurostat.png",width=1100/120,height=700/120,dpi=120)
   
-#graf týdny MVČR
+ #graf týdny MVČR
 
 data_mvcr <- mvcr %>% group_by(time) %>%
   summarise(values=n()) %>%
