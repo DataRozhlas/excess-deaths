@@ -59,7 +59,7 @@ data %>%
   labs(title = "Počty zemřelých po týdnech v České republice 2005–2020",
        subtitle = "Červeně rok 2020, šedě roky 2005 až 2019, tmavomodře 2018",
        y="",x="",
-       caption = "Zdroj dat: Eurostat") +
+       caption = "Zdroj dat: Eurostat | Vizualizace: B. Coulmont") +
   theme_ipsum(plot_margin = margin(5, 5, 0, 5), 
               plot_title_margin=5 , 
               subtitle_margin=5,
