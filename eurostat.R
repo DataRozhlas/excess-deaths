@@ -9,6 +9,10 @@ deaths <- get_eurostat("demo_r_mweek3", cache = F)
 cz_deaths <- deaths %>%
   filter(grepl("CZ", geo))
 
+deaths %>%
+  arrange(desc(time)) %>%
+
+
 rm(deaths)
 
 # cz_deaths_total <- cz_deaths %>%

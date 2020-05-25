@@ -46,9 +46,9 @@ data %>%
   geom_line(data = data_2020, aes(week, values), color= "firebrick1") +
   geom_line(data = . %>% group_by(week) %>% summarize(values=mean(values)) %>% ungroup() %>% mutate(year=2010), aes(week, values), size=.5, color="black") +
   geom_line(data = . %>% filter(year==2018), color="navyblue", size=.2) +
-  annotate(geom="text", x= 26.8, y = 2480, label = "vlny veder\n2018 a 2015", adj =0 ) +
+  annotate(geom="text", x= 29, y = 2620, label = "vlny veder\n2018 a 2015", adj =0 ) +
   annotate(geom="text",x= 11, y = 2320, label = "2020", adj=0, color="firebrick1") +
-  annotate(geom="text",x= 5, y = 2930, label = "chřipková\nepidemie\n2018", adj=0) +
+  annotate(geom="text",x= 11.5, y = 2880, label = "chřipková\nepidemie\n2018", adj=0) +
   annotate(geom="text",x= 43, y = 1750, label = "průměr 2005–2019", adj=0, size=4) +
   geom_segment(data = data.frame(x=42.8, y=1750, 
                                  xend = 35.2, yend = 1874, 
@@ -66,7 +66,11 @@ data %>%
               base_family = "Helvetica") +
   theme(plot.title.position="plot")
 
-ggsave("eurostat.png",width=1100/120,height=700/120,dpi=120)
+#ggsave("eurostat.png",width=1100/120,height=700/120,dpi=120)
+
+#ggsave("eurostat-cr-wide.png",width=11*1.2,height=3.67*1.2,dpi=320)
+
+ggsave("eurostat-cr.png",width=62/7,height=34.9/7,dpi=320)
   
  #graf týdny MVČR
 
@@ -87,9 +91,9 @@ data %>%
   geom_line(data = data_mvcr, aes(week, values), color= "firebrick1", linetype="twodash") +
   geom_line(data = . %>% group_by(week) %>% summarize(values=mean(values)) %>% ungroup() %>% mutate(year=2010), aes(week, values), size=.5, color="black") +
   geom_line(data = . %>% filter(year==2018), color="navyblue", size=.2) +
-  annotate(geom="text", x= 26.8, y = 2480, label = "vlny veder\n2018 a 2015", adj =0 ) +
-  annotate(geom="text",x= 11, y = 2320, label = "2020 předběžná data", adj=0, color="firebrick1") +
-  annotate(geom="text",x= 5, y = 2930, label = "chřipková\nepidemie\n2018", adj=0) +
+  annotate(geom="text", x= 29, y = 2620, label = "vlny veder\n2018 a 2015", adj =0 ) +
+  annotate(geom="text",x= 11, y = 2320, label = "2020 - předběžná data", adj=0, color="firebrick1") +
+  annotate(geom="text",x= 11.5, y = 2880, label = "chřipková\nepidemie\n2018", adj=0) +
   annotate(geom="text",x= 43, y = 1750, label = "průměr 2005–2019", adj=0, size=4) +
   geom_segment(data = data.frame(x=42.8, y=1750, 
                                  xend = 35.2, yend = 1874, 
@@ -98,14 +102,32 @@ data %>%
                arrow = arrow(length = unit(0.1, "inches"), type="closed") ) +
   scale_x_continuous(breaks=c(5,14,23,31,40,49), labels=c("únor", "duben", "červen", "srpen", "říjen", "prosinec")) +
   labs(title = "Počty zemřelých po týdnech v České republice 2005–2020",
-       subtitle = "Červeně rok 2020, šedě roky 2005 až 2019, tmavomodře 2018",
+       subtitle = "Červeně rok 2020 dle evidence obyvatel, šedě roky 2005 až 2019, tmavomodře 2018",
        y="",x="",
-       caption = "Zdroje dat: Eurostat, Ministerstvo vnitra České republiky - informativní výpis zemřelých z evidence obyvatel") +
+       caption = "Zdroje dat: Eurostat, Ministerstvo vnitra České republiky - informativní výpis zemřelých z evidence obyvatel | Vizualizace: iROZHLAS.cz, B. Coulmont") +
   theme_ipsum(plot_margin = margin(5, 5, 0, 5), 
               plot_title_margin=5 , 
               subtitle_margin=5,
               base_family = "Helvetica") +
   theme(plot.title.position="plot")
 
-  ggsave("~/Desktop/mvcr.png",width=1100/120,height=700/120,dpi=120)
+#  ggsave("~/Desktop/mvcr.png",width=1100/120,height=700/120,dpi=120)
 
+#  ggsave("mvcr-cr-wide.png",width=11*1.2,height=3.67*1.2,dpi=320)
+ 
+ggsave("mvcr.png",width=62/7,height=34.9/7,dpi=320)
+
+ 
+  # o kolik víc než průměr v březnu
+  data %>%
+    filter(week>9 & week<14) %>%
+    filter(year!=2020) %>%
+    group_by(year) %>%
+    summarise(celkem=sum(values)) %>%
+    summarise(mean(celkem))
+
+  data %>%
+    filter(year==2020) %>%
+    filter(week>9 & week<14) %>%
+    summarise(sum(values))
+  
