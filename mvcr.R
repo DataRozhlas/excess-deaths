@@ -3,7 +3,8 @@ library(lubridate)
 library(dplyr)
 
 # mvcr <- read.xlsx("Informativní přehled úmrtí.xlsx",detectDates = T)
-mvcr <- read.xlsx("Úmrtí-osob-výpis.xlsx", detectDates = T)
+# mvcr <- read.xlsx("Úmrtí-osob-výpis.xlsx", detectDates =T)
+mvcr <- read.xlsx("umrti-vypis-kveten.xlsx", detectDates =T, startRow = 2)
 
 # převeď datum úmrtí na číslo týdne
 mvcr$time <- paste0(isoyear(mvcr$Datum.úmrtí), "W", formatC(isoweek(mvcr$Datum.úmrtí), format="d", width=2, flag="0"))
@@ -22,7 +23,7 @@ mvcr$age <- cut(mvcr$Dosažený.věk, breaks=c(seq(0, 90, by = 5), Inf), labels=
 
 # agregace, jen období, které chybí v datech eurostatu
 mvcr_total <- mvcr %>%
-  filter(time %in% c("2020W19", "2020W18", "2020W17", "2020W16", "2020W15", "2020W14")) %>%
+  filter(time %in% c("2020W22", "2020W21", "2020W20", "2020W19", "2020W18")) %>%
   group_by(age, sex, geo, time) %>%
   summarise(values=n()) %>%
   arrange(desc(time), sex, geo) 

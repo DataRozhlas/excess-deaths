@@ -16,6 +16,8 @@ data <- deaths %>%
 data_2020 <- data %>%
   filter(year==2020)
 
+max(data_2020$values)
+
 data <- data %>% filter(year!=2020)
 
 maxi <- data %>%
@@ -59,4 +61,4 @@ data %>%
 
 
 #ggsave("eurostat-be.png",width=11*1.2,height=3.67*1.2,dpi=320)
-ggsave("eurostat-be.png",width=62/7,height=34.9/7,dpi=320)
+ggsave("eurostat-be.svg",width=62/7,height=34.9/7,dpi=320)

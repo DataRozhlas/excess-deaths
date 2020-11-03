@@ -15,7 +15,10 @@ data <- deaths %>%
 
 data_2020 <- data %>%
   filter(year==2020) %>%
-  filter(time!="2020W19")
+  filter(time!="2020W24")
+
+max(data_2020$values)
+
 
 data <- data %>% filter(year!=2020)
 
@@ -58,6 +61,7 @@ data %>%
               base_family = "Helvetica") +
   theme(plot.title.position="plot")
 
-ggsave("eurostat-se.png",width=11*1.2,height=3.67*1.2,dpi=320)
-ggsave("eurostat-se.png",width=62/7,height=34.9/7,dpi=320)
+#ggsave("eurostat-se.png",width=11*1.2,height=3.67*1.2,dpi=320)
+#ggsave("eurostat-se.svg",width=62/7,height=34.9/7,dpi=320)
+ggsave("eurostat-se.svg",width=62/7,height=34.9/7,dpi=320)
 

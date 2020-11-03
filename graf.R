@@ -1,5 +1,7 @@
 library(tidyverse)
 library(ISOweek)
+library(hrbrthemes)
+
 
 data <- cz_deaths %>%
   filter(geo=="CZ") %>%
@@ -70,7 +72,7 @@ data %>%
 
 #ggsave("eurostat-cr-wide.png",width=11*1.2,height=3.67*1.2,dpi=320)
 
-ggsave("eurostat-cr.png",width=62/7,height=34.9/7,dpi=320)
+ggsave("eurostat-cr.svg",width=62/7,height=34.9/7,dpi=320)
   
  #graf týdny MVČR
 
@@ -80,7 +82,7 @@ data_mvcr <- mvcr %>% group_by(time) %>%
   mutate(year=as.numeric(str_sub(time, 1, 4))) %>%
   mutate(date=ISOweek2date(paste(year, paste0("W", str_sub(time, 6, 7)), "7", sep="-"))) %>%
   mutate(datum_fiktivni=ymd(paste("2020", month(date), day(date), sep="-"))) %>%
-  filter(year==2020 & week<17)
+  filter(year==2020)
 
 data %>%
   filter(year<2020) %>%
@@ -115,7 +117,8 @@ data %>%
 
 #  ggsave("mvcr-cr-wide.png",width=11*1.2,height=3.67*1.2,dpi=320)
  
-ggsave("mvcr.png",width=62/7,height=34.9/7,dpi=320)
+#ggsave("mvcr.png",width=62/7,height=34.9/7,dpi=320)
+ggsave("mvcr-cr.svg",width=62/7,height=34.9/7,dpi=320)
 
  
   # o kolik víc než průměr v březnu

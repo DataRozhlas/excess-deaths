@@ -1,3 +1,5 @@
+library(devtools)
+install_github("ropengov/eurostat")
 library(eurostat)
 library(dplyr)
 library(readr)
