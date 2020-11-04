@@ -4,7 +4,9 @@ library(dplyr)
 
 # mvcr <- read.xlsx("Informativní přehled úmrtí.xlsx",detectDates = T)
 # mvcr <- read.xlsx("Úmrtí-osob-výpis.xlsx", detectDates =T)
-mvcr <- read.xlsx("umrti-vypis-kveten.xlsx", detectDates =T, startRow = 2)
+# mvcr <- read.xlsx("umrti-vypis-kveten.xlsx", detectDates =T, startRow = 2)
+
+mvcr <- read.xlsx("umrti-vypis-rijen.xlsx", detectDates =T, startRow = 2)
 
 # převeď datum úmrtí na číslo týdne
 mvcr$time <- paste0(isoyear(mvcr$Datum.úmrtí), "W", formatC(isoweek(mvcr$Datum.úmrtí), format="d", width=2, flag="0"))
@@ -22,8 +24,8 @@ labs <- c("Y_LT5", paste0("Y", seq(5, 85, by = 5), "-", seq(5 + 5 - 1, 90 - 1, b
 mvcr$age <- cut(mvcr$Dosažený.věk, breaks=c(seq(0, 90, by = 5), Inf), labels=labs, right=FALSE)
 
 # agregace, jen období, které chybí v datech eurostatu
-mvcr_total <- mvcr %>%
-  filter(time %in% c("2020W22", "2020W21", "2020W20", "2020W19", "2020W18")) %>%
+mvcr_total <- mvcr š%>%
+#  filter(time %in% c("2020W39", "2020W40", "2020W41", "2020W42", "2020W43")) %>%
   group_by(age, sex, geo, time) %>%
   summarise(values=n()) %>%
   arrange(desc(time), sex, geo) 
@@ -41,3 +43,5 @@ cz_deaths_compact <- cz_deaths %>%
 
 
 write.xlsx(rbind(cz_deaths_compact, mvcr_total_export) %>% arrange(desc(time)), "deaths_cz_mvcr.xlsx")
+
+write.xlsx(mvcr_total_export, "mvcr.xlsx", asTable=T)

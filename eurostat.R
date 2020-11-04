@@ -3,6 +3,8 @@ install_github("ropengov/eurostat")
 library(eurostat)
 library(dplyr)
 library(readr)
+library(openxlsx)
+library(xl)
 
 check_access_to_data()
 
@@ -14,8 +16,7 @@ cz_deaths <- deaths %>%
 deaths %>%
   arrange(desc(time)) %>%
 
-
-rm(deaths)
+  rm(deaths)
 
 # cz_deaths_total <- cz_deaths %>%
 #   filter(age=="TOTAL") %>%
@@ -30,6 +31,6 @@ rm(deaths)
 
 
 
-write.xlsx(cz_deaths, "deaths_cz.xlsx")
+write.xlsx(cz_deaths, "eurostat-cz.xlsx", asTable = T)
 
 write_csv(cz_deaths, "deaths_cz.csv")

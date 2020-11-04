@@ -2,7 +2,6 @@ library(tidyverse)
 library(ISOweek)
 library(hrbrthemes)
 
-
 data <- cz_deaths %>%
   filter(geo=="CZ") %>%
   filter(age=="TOTAL") %>%
@@ -38,7 +37,7 @@ data_2020 <- data %>%
 #   geom_line(data = . %>% group_by(week) %>% summarize(values=mean(values)) %>% ungroup() %>% mutate(year=2010), aes(week, values), size=.5, color="black")
 
 
-# graf týdny
+# graf týdny ČSÚ
 data %>%
   filter(year<2020) %>%
   filter(week!=53) %>%
@@ -117,13 +116,13 @@ data %>%
 
 #  ggsave("mvcr-cr-wide.png",width=11*1.2,height=3.67*1.2,dpi=320)
  
-#ggsave("mvcr.png",width=62/7,height=34.9/7,dpi=320)
+ggsave("mvcr.png",width=62/7,height=34.9/7,dpi=320)
 ggsave("mvcr-cr.svg",width=62/7,height=34.9/7,dpi=320)
 
  
-  # o kolik víc než průměr v březnu
+  # o kolik víc než průměr v říjnu
   data %>%
-    filter(week>9 & week<14) %>%
+    filter(week==41) %>%
     filter(year!=2020) %>%
     group_by(year) %>%
     summarise(celkem=sum(values)) %>%
@@ -131,6 +130,6 @@ ggsave("mvcr-cr.svg",width=62/7,height=34.9/7,dpi=320)
 
   data %>%
     filter(year==2020) %>%
-    filter(week>9 & week<14) %>%
+    filter(week==41) %>%
     summarise(sum(values))
   
