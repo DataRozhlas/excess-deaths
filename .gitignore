@@ -2,6 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
-*.xlsx
 *.Rdata
 2020-deces-github.R
