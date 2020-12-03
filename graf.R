@@ -122,11 +122,10 @@ ggsave("mvcr-cr.svg",width=62/7,height=34.9/7,dpi=320)
  
   # o kolik víc než průměr v říjnu
   data %>%
-    filter(week==41) %>%
-    filter(year!=2020) %>%
-    group_by(year) %>%
-    summarise(celkem=sum(values)) %>%
-    summarise(mean(celkem))
+    filter(week==44) %>%
+    summarise(mean(values)) %>%
+    as.numeric()
+  
 
   data %>%
     filter(year==2020) %>%
