@@ -29,3 +29,5 @@ rm(deaths)
 write.xlsx(cz_deaths, "eurostat-cz.xlsx", asTable = T)
 
 write_csv(cz_deaths, "deaths_cz.csv")
+
+# zemřeli 2020 so far

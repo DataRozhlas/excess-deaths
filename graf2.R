@@ -13,7 +13,7 @@ data_mvcr <- mvcr %>%
   mutate(week=as.numeric(str_sub(time, 6, 7))) %>%
   mutate(year=as.numeric(str_sub(time, 1, 4))) %>%
   mutate(date=ISOweek2date(paste(year, paste0("W", str_sub(time, 6, 7)), "7", sep="-"))) %>%
-  filter(week %nin% c(1,49,48,47,46))
+  filter(week %nin% c(1,51,50,49))
   
 
 data <- cz_deaths %>%

@@ -6,10 +6,41 @@ library(dplyr)
 # mvcr <- read.xlsx("Úmrtí-osob-výpis.xlsx", detectDates =T)
 # mvcr <- read.xlsx("umrti-vypis-kveten.xlsx", detectDates =T, startRow = 2)
 
-mvcr <- read.xlsx("umrti-vypis-listopad.xlsx", detectDates =T, startRow = 2)
+mvcr <- read.xlsx("umrti-vypis-prosinec.xlsx", detectDates =T, startRow = 2)
 
 # převeď datum úmrtí na číslo týdne
 mvcr$time <- paste0(isoyear(mvcr$Datum.úmrtí), "W", formatC(isoweek(mvcr$Datum.úmrtí), format="d", width=2, flag="0"))
+
+# najdi černý den
+
+read.xlsx("umrti-vypis-listopad.xlsx", detectDates =T, startRow = 2) %>%
+ group_by(Datum.úmrtí) %>%
+  summarise(pocet=n()) %>%
+  arrange(desc(pocet))
+
+# kolik lidí zemřelo v říjnu
+
+read.xlsx("umrti-vypis-prosinec.xlsx", detectDates =T, startRow = 2) %>%
+  group_by(month(Datum.úmrtí)) %>%
+  summarise(pocet=n()) %>%
+  arrange(desc(pocet))
+
+
+# zemřeli 2020 so far
+cz_deaths %>%
+  filter(geo=="CZ") %>%
+  filter(sex=="T") %>%
+  filter(age=="TOTAL") %>%
+  mutate(year=as.numeric(str_sub(time, 1, 4)))%>%
+  filter(year>2019) %>%
+  summarise(total=sum(values))
+
+mvcr <- read.xlsx("umrti-vypis-prosinec.xlsx", detectDates =T, startRow = 2)
+mvcr$time <- as.numeric(isoweek(mvcr$Datum.úmrtí))
+
+mvcr %>%
+  filter(time > 45) %>%
+  summarise(n())
 
 # pohlaví anglicky
 mvcr[mvcr$Pohlaví=="Z",]$Pohlaví <- "F"
