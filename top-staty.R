@@ -7,7 +7,7 @@ data(pop)
 rm(popF,popFT,popM,popMT)
 
 pop <- pop %>%
-  select(1,2,17)
+  select(1,2,pop2015=16,pop2020=17)
 
 karlinsky <- read_csv("https://raw.githubusercontent.com/akarlinsky/world_mortality/main/world_mortality.csv")
 
@@ -41,4 +41,16 @@ result <- umrti_2020 %>%
   mutate(country_code=countrycode(country_name, "country.name", "un")) %>%
   arrange(desc(nadumrti_2020_pct)) %>%
   left_join((pop)) %>%
+  filter(!is.na(pop2020)) %>%
+  filter(!is.na(umrti_2020)) %>%
+  mutate(pop2017=(pop2017+pop2020)/2)
+
+
+
+  
+  
+  mutate(umrti_1k_prumer=dlouhodoby_prumer/pop2020)
+
+
+%>%
   write_csv("top-staty.csv")
