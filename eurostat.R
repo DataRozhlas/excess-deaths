@@ -23,6 +23,12 @@ sk_deaths <- deaths %>%
 be_deaths <- deaths %>%
   filter(grepl("BE", geo))
 
+at_deaths <- deaths %>%
+  filter(grepl("AT", geo))
+
+se_deaths <- deaths %>%
+  filter(grepl("SE", geo))
+
 rm(deaths)
 
 # cz_deaths_total <- cz_deaths %>%

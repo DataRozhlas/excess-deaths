@@ -43,14 +43,8 @@ result <- umrti_2020 %>%
   left_join((pop)) %>%
   filter(!is.na(pop2020)) %>%
   filter(!is.na(umrti_2020)) %>%
-  mutate(pop2017=(pop2017+pop2020)/2)
-
-
-
-  
-  
-  mutate(umrti_1k_prumer=dlouhodoby_prumer/pop2020)
-
-
-%>%
+  mutate(pop2017=(pop2015+pop2020)/2) %>%
+  mutate(umrti_1k_prumer=dlouhodoby_prumer/pop2017) %>%
+  mutate(umrti_1k_2020=umrti_2020/pop2020) %>%
+  mutate(nadumrti_2020_abs=umrti_2020-dlouhodoby_prumer) %>%
   write_csv("top-staty.csv")
